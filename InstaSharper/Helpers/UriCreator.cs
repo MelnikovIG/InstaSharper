@@ -234,6 +234,25 @@ namespace InstaSharper.Helpers
             return instaUri;
         }
 
+
+
+        public static Uri GetBlockUserUri(long userId)
+        {
+            if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.BLOCK_USER, userId),
+                out var instaUri))
+                throw new Exception("Cant create URI for getting media likers");
+            return instaUri;
+        }
+
+        public static Uri GetUnBlockUserUri(long userId)
+        {
+            if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.UNBLOCK_USER, userId),
+                out var instaUri))
+                throw new Exception("Cant create URI for getting media likers");
+            return instaUri;
+        }
+
+
         public static Uri GetUriSetAccountPrivate()
         {
             if (!Uri.TryCreate(BaseInstagramUri, InstaApiConstants.SET_ACCOUNT_PRIVATE, out var instaUri))
@@ -383,6 +402,14 @@ namespace InstaSharper.Helpers
             if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.GET_COLLECTION, collectionId),
                 out var instaUri))
                 throw new Exception("Can't create URI for getting collection");
+            return instaUri;
+        }
+
+        public static Uri GetEditCollectionUri(long collectionId)
+        {
+            if (!Uri.TryCreate(BaseInstagramUri, string.Format(InstaApiConstants.EDIT_COLLECTION, collectionId),
+                out var instaUri))
+                throw new Exception("Can't create URI for editing collection");
             return instaUri;
         }
 
