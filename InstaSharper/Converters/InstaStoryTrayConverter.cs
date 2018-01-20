@@ -17,11 +17,14 @@ namespace InstaSharper.Converters
                 IsPortrait = SourceObject.IsPortrait,
                 TopLive = ConvertersFabric.Instance.GetTopLiveConverter(SourceObject.TopLive).Convert()
             };
-            foreach (var item in SourceObject.Tray)
-            {
-                var story = ConvertersFabric.Instance.GetStoryConverter(item).Convert();
-                storyTray.Tray.Add(story);
-            }
+
+            if (SourceObject.Tray != null)
+                foreach (var item in SourceObject.Tray)
+                {
+                    var story = ConvertersFabric.Instance.GetStoryConverter(item).Convert();
+                    storyTray.Tray.Add(story);
+                }
+
             return storyTray;
         }
     }

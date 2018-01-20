@@ -22,6 +22,7 @@ namespace InstaSharper.Converters.Json
             var root = JToken.Load(reader);
             var feed = root.ToObject<InstaTagFeedResponse>();
             feed.Medias.Clear();
+            feed.RankedItems.Clear();
             feed.Stories.Clear();
             var story = root.SelectToken("story");
             var rankedItems = root.SelectToken("ranked_items");
@@ -34,8 +35,10 @@ namespace InstaSharper.Converters.Json
                     .Where(media => !string.IsNullOrEmpty(media?.Pk)).ToList();
             }
 
-            feed.Medias.AddRange(GetMedias(items));
-            feed.RankedItems.AddRange(GetMedias(rankedItems));
+            if (items != null)
+                feed.Medias.AddRange(GetMedias(items));
+            if (rankedItems != null)
+                feed.RankedItems.AddRange(GetMedias(rankedItems));
             if (storiesTray == null) return feed;
             foreach (var storyItem in storiesTray)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using InstaSharper.Classes;
 using InstaSharper.Classes.Models;
 using InstaSharper.Tests.Classes;
 using Xunit;
@@ -41,7 +42,8 @@ namespace InstaSharper.Tests.Endpoints
         public async void GetMediaCommentsTest(string mediaId)
         {
             Assert.True(_authInfo.ApiInstance.IsUserAuthenticated);
-            var comments = await _authInfo.ApiInstance.GetMediaCommentsAsync(mediaId, 3);
+            var comments =
+                await _authInfo.ApiInstance.GetMediaCommentsAsync(mediaId, PaginationParameters.MaxPagesToLoad(5));
 
             var anyDuplicate = comments.Value.Comments.GroupBy(x => x.Pk).Any(g => g.Count() > 1);
 
@@ -50,13 +52,14 @@ namespace InstaSharper.Tests.Endpoints
         }
 
         [Theory]
-        [InlineData("alex_codegarage")]
+        [InlineData("microsoftstore")]
         public async void GetUserMediaListTest(string userToFetch)
         {
             Assert.True(_authInfo.ApiInstance.IsUserAuthenticated);
             var random = new Random(DateTime.Now.Millisecond);
 
-            var posts = await _authInfo.ApiInstance.GetUserMediaAsync(userToFetch, 3);
+            var posts = await _authInfo.ApiInstance.GetUserMediaAsync(userToFetch,
+                PaginationParameters.MaxPagesToLoad(3));
             var anyDuplicate = posts.Value.GroupBy(x => x.Code).Any(g => g.Count() > 1);
 
             Assert.NotNull(posts);

@@ -5,7 +5,6 @@ namespace InstaSharper.Classes.ResponseWrappers
 {
     public class InstaPermalinkResponse : BaseStatusResponse
     {
-        [JsonProperty("permalink")]
-        public string Permalink { get; set; }
+        [JsonProperty("permalink")] public string Permalink { get; set; }
     }
 }

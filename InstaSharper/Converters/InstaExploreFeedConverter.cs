@@ -17,6 +17,8 @@ namespace InstaSharper.Converters
             List<InstaMedia> ConvertMedia(List<InstaMediaItemResponse> mediasResponse)
             {
                 var medias = new List<InstaMedia>();
+                if (mediasResponse == null)
+                    return medias;
                 foreach (var instaUserFeedItemResponse in mediasResponse)
                 {
                     if (instaUserFeedItemResponse?.Type != 0) continue;
@@ -24,17 +26,21 @@ namespace InstaSharper.Converters
                         .Convert();
                     medias.Add(feedItem);
                 }
+
                 return medias;
             }
 
             var feed = new InstaExploreFeed
             {
-                StoryTray = ConvertersFabric.Instance.GetStoryTrayConverter(SourceObject.Items.StoryTray).Convert(),
-                Channel = ConvertersFabric.Instance.GetChannelConverter(SourceObject.Items.Channel).Convert()
+                NextId = SourceObject.NextMaxId
             };
-            feed.Medias.AddRange(ConvertMedia(SourceObject.Items.Medias));
-            feed.Medias.PageSize = feed.Medias.Count;
+            if (SourceObject.Items?.StoryTray != null)
+                feed.StoryTray = ConvertersFabric.Instance.GetStoryTrayConverter(SourceObject.Items.StoryTray)
+                    .Convert();
+            if (SourceObject.Items?.Channel != null)
+                feed.Channel = ConvertersFabric.Instance.GetChannelConverter(SourceObject.Items.Channel).Convert();
 
+            feed.Medias.AddRange(ConvertMedia(SourceObject.Items?.Medias));
             return feed;
         }
     }

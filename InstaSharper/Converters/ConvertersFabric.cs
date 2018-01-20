@@ -181,10 +181,10 @@ namespace InstaSharper.Converters
             return new InstaTopLiveConverter {SourceObject = response};
         }
 
-        public IObjectConverter<InsteReelFeed, InsteReelFeedResponse> GetReelFeedConverter(
-            InsteReelFeedResponse response)
+        public IObjectConverter<InstaReelFeed, InstaReelFeedResponse> GetReelFeedConverter(
+            InstaReelFeedResponse response)
         {
-            return new InsteReelFeedConverter {SourceObject = response};
+            return new InstaReelFeedConverter {SourceObject = response};
         }
 
         public IObjectConverter<InstaReelMention, InstaReelMentionResponse> GetMentionConverter(
@@ -227,6 +227,36 @@ namespace InstaSharper.Converters
             InstaCoverMediaResponse response)
         {
             return new InstaCoverMediaConverter {SourceObject = response};
+        }
+
+        public IObjectConverter<InstaInboxMedia, InstaInboxMediaResponse> GetInboxMediaConverter(
+            InstaInboxMediaResponse response)
+        {
+            return new InstaInboxMediaConverter {SourceObject = response};
+        }
+
+        public IObjectConverter<InstaLocationShortList, InstaLocationSearchResponse> GetLocationsSearchConverter(
+            InstaLocationSearchResponse response)
+        {
+            return new InstaLocationSearchConverter {SourceObject = response};
+        }
+
+        public IObjectConverter<InstaLocationShort, InstaLocationShortResponse> GetLocationShortConverter(
+            InstaLocationShortResponse response)
+        {
+            return new InstaLocationShortConverter {SourceObject = response};
+        }
+
+        public IObjectConverter<InstaLocationFeed, InstaLocationFeedResponse> GetLocationFeedConverter(
+            InstaLocationFeedResponse response)
+        {
+            return new InstaLocationFeedConverter {SourceObject = response};
+        }
+
+        public IObjectConverter<InstaUserInfo, InstaUserInfoContainerResponse> GetUserInfoConverter(
+            InstaUserInfoContainerResponse response)
+        {
+            return new InstaUserInfoConverter {SourceObject = response};
         }
     }
 }

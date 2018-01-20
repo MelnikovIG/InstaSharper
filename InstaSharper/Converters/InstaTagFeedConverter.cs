@@ -25,17 +25,19 @@ namespace InstaSharper.Converters
                         .Convert();
                     medias.Add(feedItem);
                 }
+
                 return medias;
             }
 
             feed.RankedMedias.AddRange(ConvertMedia(SourceObject.RankedItems));
             feed.Medias.AddRange(ConvertMedia(SourceObject.Medias));
-            feed.Medias.PageSize = feed.Medias.Count;
+            feed.NextId = SourceObject.NextMaxId;
             foreach (var story in SourceObject.Stories)
             {
                 var feedItem = ConvertersFabric.Instance.GetStoryConverter(story).Convert();
                 feed.Stories.Add(feedItem);
             }
+
             return feed;
         }
     }
